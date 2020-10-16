@@ -3,12 +3,12 @@
   <head>
     <meta charset="utf-8" >
 
-<title>周志   2020/10/12 - 2020/10/18 | 秃强秃强的小程</title>
+<title>周志   2020/10/12 - 2020/10/18 | 还是peng哥弔</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://cccccckl.github.io/favicon.ico?v=1602579802020">
+<link rel="shortcut icon" href="https://cccccckl.github.io/favicon.ico?v=1602817700901">
 <link rel="stylesheet" href="https://cccccckl.github.io/styles/main.css">
 
 
@@ -22,8 +22,8 @@
 嗯。。。。  方便管理周志 所以搞了个blog🕶
 
 
-正题当然还是来到python的学习
-..." />
+正题当然还是来到python爬虫的学习
+之前有系统的学习过其他编译型语言，python作为一种解释型语言我觉得还是蛮好理解的，只是其中的一些特有术语（一些库里的函数之类的）会不太清楚..." />
     <meta name="keywords" content="周志" />
   </head>
   <body>
@@ -33,8 +33,8 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://cccccckl.github.io">
-        <img src="https://cccccckl.github.io/images/avatar.png?v=1602579802020" class="site-logo">
-        <h1 class="site-title">秃强秃强的小程</h1>
+        <img src="https://cccccckl.github.io/images/avatar.png?v=1602817700901" class="site-logo">
+        <h1 class="site-title">还是peng哥弔</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
         <div class="line"></div>
@@ -91,7 +91,23 @@
 <li>嗯。。。。  方便管理周志 所以搞了个<strong>blog</strong>🕶<br>
 <img src="https://cccccckl.github.io/post-images/1602579079211.png" alt="" loading="lazy"></li>
 </ul>
-<p>正题当然还是来到<strong>python的学习</strong></p>
+<h1 id="正题当然还是来到python爬虫的学习">正题当然还是来到python<em>爬虫</em>的学习</h1>
+<p>之前有系统的学习过其他编译型语言，python作为一种解释型语言我觉得还是蛮好理解的，只是其中的一些特有术语（一些库里的函数之类的）会不太清楚（多查点<br>
+而我们需要的应该是一个定向爬虫</p>
+<p>这是一串<strong>正则表达式</strong></p>
+<pre><code>findLink = re.compile(r'&lt;a href=&quot;(.*?)&quot;&gt;')            # 创建正则表达式对象，标售规则   影片详情链接的规则
+findImgSrc = re.compile(r'&lt;img.*src=&quot;(.*?)&quot;', re.S)
+findTitle = re.compile(r'&lt;span class=&quot;title&quot;&gt;(.*)&lt;/span&gt;')
+findRating = re.compile(r'&lt;span class=&quot;rating_num&quot; property=&quot;v:average&quot;&gt;(.*)&lt;/span&gt;')
+findJudge = re.compile(r'&lt;span&gt;(\d*)人评价&lt;/span&gt;')
+findInq = re.compile(r'&lt;span class=&quot;inq&quot;&gt;(.*)&lt;/span&gt;')
+findBd = re.compile(r'&lt;p class=&quot;&quot;&gt;(.*?)&lt;/p&gt;', re.S)
+</code></pre>
+<p>用来匹配网页中的信息，一开始我也好奇为啥要专门搞个这玩意，为啥不用字符串来进行匹配，后面发现一个字符一个字符的查找确实有点离谱，这个是按照某个模式进行匹配，一行代码搞定，方便多了。<br>
+<img src="https://cccccckl.github.io/post-images/1602817161593.png" alt="" loading="lazy"><br>
+上Google charm F12抓了一下包，看了好久才找到= =。对比上面的代码一看就能发现要爬的是啥数据了。</p>
+<pre><code>a = re.compile()  #进行预编译，后续需要大量重复查找操作，使用预编译高效很多
+</code></pre>
 
             </div>
             
