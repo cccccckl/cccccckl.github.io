@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://cccccckl.github.io/favicon.ico?v=1602817700901">
+<link rel="shortcut icon" href="https://cccccckl.github.io/favicon.ico?v=1602829744891">
 <link rel="stylesheet" href="https://cccccckl.github.io/styles/main.css">
 
 
@@ -33,7 +33,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://cccccckl.github.io">
-        <img src="https://cccccckl.github.io/images/avatar.png?v=1602817700901" class="site-logo">
+        <img src="https://cccccckl.github.io/images/avatar.png?v=1602829744891" class="site-logo">
         <h1 class="site-title">还是peng哥弔</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -94,7 +94,7 @@
 <h1 id="正题当然还是来到python爬虫的学习">正题当然还是来到python<em>爬虫</em>的学习</h1>
 <p>之前有系统的学习过其他编译型语言，python作为一种解释型语言我觉得还是蛮好理解的，只是其中的一些特有术语（一些库里的函数之类的）会不太清楚（多查点<br>
 而我们需要的应该是一个定向爬虫</p>
-<p>这是一串<strong>正则表达式</strong></p>
+<h3 id="这是一串正则表达式">这是一串<strong>正则表达式</strong></h3>
 <pre><code>findLink = re.compile(r'&lt;a href=&quot;(.*?)&quot;&gt;')            # 创建正则表达式对象，标售规则   影片详情链接的规则
 findImgSrc = re.compile(r'&lt;img.*src=&quot;(.*?)&quot;', re.S)
 findTitle = re.compile(r'&lt;span class=&quot;title&quot;&gt;(.*)&lt;/span&gt;')
@@ -108,6 +108,151 @@ findBd = re.compile(r'&lt;p class=&quot;&quot;&gt;(.*?)&lt;/p&gt;', re.S)
 上Google charm F12抓了一下包，看了好久才找到= =。对比上面的代码一看就能发现要爬的是啥数据了。</p>
 <pre><code>a = re.compile()  #进行预编译，后续需要大量重复查找操作，使用预编译高效很多
 </code></pre>
+<!-- more -->
+<pre><code>. #点可代表一切字符
+
+\ # 起转义作用
+
+[...] # 指代方括号中的任意字符
+
+\d # 指代数字0-9
+
+\D # 指代非数字
+
+\s # 指代一切空格，包括tab制表符、空格、换行等
+
+\S # 指代非空格
+
+\w # 指代大小写字母、数字和下划线
+
+\W # 指代非大小写字母、数字和下划线
+
+* # 匹配前面字符 &gt;=0 次
+
++ # 匹配前面字符1次及以上
+
+? # 匹配前面字符0次或1次
+
+{m} # 匹配m次
+
+{m,n} # 匹配m到n次
+
+{m,} # 至少匹配m次
+</code></pre>
+<h3 id="得到指定一个url的网页内容">得到指定一个URL的网页内容</h3>
+<pre><code>def askURL(url):
+head = { &quot;User-Agent&quot;: &quot;Mozilla / 5.0(Windows NT 10.0; Win64; x64) AppleWebKit / 537.36(KHTML, like Gecko) Chrome / 80.0.3987.122  Safari / 537.36&quot;
+}
+# 用户代理，表示告诉豆瓣服务器，我们是什么类型的机器、浏览器（本质上是告诉浏览器，我们可以接收什么水平的文件内容）
+
+request = urllib.request.Request(url, headers=head)
+html = &quot;&quot;
+try: 
+    response = urllib.request.urlopen(request)
+    html = response.read().decode(&quot;utf-8&quot;)
+except urllib.error.URLError as e:
+if hasattr(e, &quot;code&quot;):
+    print(e.code)
+if hasattr(e, &quot;reason&quot;):
+    print(e.reason)
+return html
+</code></pre>
+<p>并不是很懂这段，这段应该是把网页的源码拔下来吧。它咋实现的不是很明白。</p>
+<h3 id="爬取网页">爬取网页</h3>
+<pre><code>def getData(baseurl):
+datalist = []  #用来存储爬取的网页信息
+for i in range(0, 10):  # 调用获取页面信息的函数，10次
+    url = baseurl + str(i * 25)
+    html = askURL(url)  # 保存获取到的网页源码
+    # 2.逐一解析数据
+    soup = BeautifulSoup(html, &quot;html.parser&quot;)
+    for item in soup.find_all('div', class_=&quot;item&quot;):  # 查找符合要求的字符串
+        data = []  # 保存一部电影所有信息
+        item = str(item)
+        link = re.findall(findLink, item)[0]  # 通过正则表达式查找
+        data.append(link)
+        imgSrc = re.findall(findImgSrc, item)[0]
+        data.append(imgSrc)
+        titles = re.findall(findTitle, item)
+        if (len(titles) == 2):
+            ctitle = titles[0]
+            data.append(ctitle)
+            otitle = titles[1].replace(&quot;/&quot;, &quot;&quot;)  #消除转义字符
+            data.append(otitle)
+        else:
+            data.append(titles[0])
+            data.append(' ')
+        rating = re.findall(findRating, item)[0]
+        data.append(rating)
+        judgeNum = re.findall(findJudge, item)[0]
+        data.append(judgeNum)
+        inq = re.findall(findInq, item)
+        if len(inq) != 0:
+            inq = inq[0].replace(&quot;。&quot;, &quot;&quot;)
+            data.append(inq)
+        else:
+            data.append(&quot; &quot;)
+        bd = re.findall(findBd, item)[0]
+        bd = re.sub('&lt;br(\s+)?/&gt;(\s+)?', &quot;&quot;, bd)
+        bd = re.sub('/', &quot;&quot;, bd)
+        data.append(bd.strip())
+        datalist.append(data)
+ return datalist
+</code></pre>
+<p>这一段就开始网页的爬取了</p>
+<pre><code>soup = BeautifulSoup(html, &quot;html.parser&quot;)  #对网页进行解析，将html文档解析成文档树，返回bs对象
+
+soup.find_all('div', class_=&quot;item&quot;)  #找到&lt;div class = &quot;item&quot;&gt;
+</code></pre>
+<!-- more -->
+<pre><code>titles = re.findall(findTitle, item)
+        if (len(titles) == 2):
+            ctitle = titles[0]
+            data.append(ctitle)
+            otitle = titles[1].replace(&quot;/&quot;, &quot;&quot;)  #消除转义字符
+            data.append(otitle)
+        else:
+            data.append(titles[0])
+            data.append(' ')
+</code></pre>
+<p>这一部分对电影名进行提取，即从下列中进行提取<br>
+<img src="https://cccccckl.github.io/post-images/1602828392403.png" alt="" loading="lazy"></p>
+<pre><code>bd = re.findall(findBd, item)[0]
+bd = re.sub('&lt;br(\s+)?/&gt;(\s+)?', &quot;&quot;, bd)      #消去空格
+bd = re.sub('/', &quot;&quot;, bd)
+data.append(bd.strip())
+</code></pre>
+<p>而这一部分则是对下面的相关信息进行处理<br>
+<img src="https://cccccckl.github.io/post-images/1602829158225.png" alt="" loading="lazy"></p>
+<h3 id="保存数据到表格">保存数据到表格</h3>
+<pre><code>def saveData(datalist,savepath):
+print(&quot;save.......&quot;)
+book = xlwt.Workbook(encoding=&quot;utf-8&quot;,style_compression=0) #创建workbook对象
+sheet = book.add_sheet('豆瓣电影Top250', cell_overwrite_ok=True) #创建工作表
+col = (&quot;电影详情链接&quot;,&quot;图片链接&quot;,&quot;影片中文名&quot;,&quot;影片外国名&quot;,&quot;评分&quot;,&quot;评价数&quot;,&quot;概况&quot;,&quot;相关信息&quot;)
+for i in range(0,8):
+    sheet.write(0,i,col[i])  #列名
+for i in range(0,250):
+    data = datalist[i]
+    for j in range(0,8):
+        sheet.write(i+1,j,data[j])  #数据
+book.save(savepath) #保存
+</code></pre>
+<p>这一份爬虫代码是从网上copy来的，我想根据里面的一些结构啊，语法啊之类的来学习，边看边写，不会写的时候再回去看，看不懂就去查，就这样一个过程。</p>
+<h1 id="周计划">周计划</h1>
+<h2 id="本周">本周</h2>
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-8131871"><label class="task-list-item-label" for="task-item-8131871"> （初步）看懂别人写的爬虫</label>
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-6623454"><label class="task-list-item-label" for="task-item-6623454"> 机器学习开篇</label></li>
+</ul>
+</li>
+</ul>
+<h2 id="下周">下周</h2>
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-2240699"><label class="task-list-item-label" for="task-item-2240699"> 尝试自己写个爬虫</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-8928074"><label class="task-list-item-label" for="task-item-8928074"> 开始学习机器学习方面的内容</label></li>
+</ul>
 
             </div>
             
