@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://cccccckl.github.io</id>
     <title>还是peng哥弔</title>
-    <updated>2020-10-16T06:29:09.042Z</updated>
+    <updated>2020-10-25T06:29:03.835Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://cccccckl.github.io"/>
     <link rel="self" href="https://cccccckl.github.io/atom.xml"/>
@@ -10,6 +10,93 @@
     <logo>https://cccccckl.github.io/images/avatar.png</logo>
     <icon>https://cccccckl.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 还是peng哥弔</rights>
+    <entry>
+        <title type="html"><![CDATA[周志 2020/10/19 - 2020/10/25]]></title>
+        <id>https://cccccckl.github.io/post/zhou-zhi-20201018-20201025/</id>
+        <link href="https://cccccckl.github.io/post/zhou-zhi-20201018-20201025/">
+        </link>
+        <updated>2020-10-25T05:49:42.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="爬虫">爬虫🐞</h1>
+<pre><code>#coding = utf - 8
+from bs4 import  BeautifulSoup
+import re
+import urllib.request,urllib.error
+date = re.compile(r'&lt;th width=&quot;13%&quot;&gt;(.*?)&lt;/th&gt;')
+time = re.compile(r'&lt;th&gt;(.*?)&lt;/th&gt;')
+course = re.compile(r'&lt;td&gt;(.*?)&lt;/td&gt;',re.S)
+
+def main() :
+
+    baseurl = &quot;http://run.hbut.edu.cn/ArrangeTask/ClassSchedule?ClassName=&quot;
+    getdata(baseurl)
+
+def getdata(baseurl):
+    a = input(&quot;年级：&quot;)
+    b = input(&quot;班级：&quot;)
+    banji = str(a) + &quot;%E8%AE%A1%E7%AE%97%E7%B1%BB&quot; + str(b)
+    url = baseurl + banji
+    html = askURL(url)
+    soup = BeautifulSoup(html, &quot;html.parser&quot;)
+    item = soup.find_all(&quot;tr&quot;)
+    item = str(item)
+    day = re.findall(date,item)
+    print(day)
+    ti = re.findall(time, item)
+    print(ti)
+    cour = re.findall(course,item)
+    for temp in cour:
+        cour = re.sub('&lt;br/&gt;', &quot;&quot;, temp)
+        print(cour)
+
+
+def askURL(url):
+
+    head = {
+            &quot;User-Agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36&quot;
+            ,&quot;Cookie&quot;: &quot;ASP.NET_SessionId=hli2lp1udjnxxhue3qyzkonm; userObjFullName=FEeqPDjeGitzgwXDoXySgQ%3d%3d; .ASPXAUTH=9E9DE3B0F22712B6F78C1CB6A8835C8F12E58CA106490A6E14D454E242DEABD3A7A707F0F3D9E2219595F622973C32268596A18F2BCEE14B5D111642ECC604C8A4A57F29C62103387385B009A47E4F0B669817842C37CE74185D0B37EC8EFD84BFA843FCC8009BB09464FCBAAD59BF19A893019AD0F553655B8BACC66891531348269562268679D454420625FFF0F572; Role=lwrt0kLsK1Qv2smKJyYyPtfV1%2bqQu6t6; CurrentSemaster=lwrt0kLsK1R3NGFRCFSX7K9qgkI2IKE4BZ7rn3h6Ay0Vc0IEMt0klA%3d%3d&quot;
+            }
+    request = urllib.request.Request(url,headers= head)
+    response = urllib.request.urlopen(request)
+    html = response.read().decode(&quot;utf - 8&quot;)
+
+    return html
+
+if __name__ == &quot;__main__&quot; :
+ main()
+</code></pre>
+<p>这是一个爬课表的爬虫，具体跑起来呢是这样子的<br>
+<img src="https://cccccckl.github.io/post-images/1603605312890.png" alt="" loading="lazy"><br>
+提供了年纪班级的输入（但是目前只支持计算类- -）<br>
+在数据的存储上还没有进一步完善，应该以类来存</p>
+<h1 id="机器学习">机器学习</h1>
+<h2 id="监督学习">监督学习</h2>
+<p>何为监督学习？即我们给算法一个数据集（data set），其中包括了正确答案（“right answer”），而算法的目的就是给出更多的正确答案（more “right answer”）。</p>
+<h3 id="回归问题">回归问题</h3>
+<p>我们设法预测连续值的属性（continue）。<br>
+<img src="https://cccccckl.github.io/post-images/1603606132021.png" alt="" loading="lazy"><br>
+以图为例，我们得到一个房价的数据集，在图上寻找其回归方程，或许是直线，或许是曲线，直到我们能够得到一个使数据最收敛的方程。</p>
+<h3 id="分类问题">分类问题</h3>
+<p>我们设法预测一个离散值输出（discrete）。<br>
+<img src="https://cccccckl.github.io/post-images/1603606610984.png" alt="" loading="lazy"><br>
+同样以图为例，我们得到某医院中有某种肿瘤的病人的数据，我们所要做的，便是找出一条直线来分离这两类瘤以做预测。</p>
+<h2 id="无监督学习">无监督学习</h2>
+<p>对于给定数据集，无监督学习算法可能判定该数据集包含多个不同的簇。</p>
+<h1 id="周计划">周计划</h1>
+<h2 id="本周">本周</h2>
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-3217972"><label class="task-list-item-label" for="task-item-3217972"> 尝试自己写个爬虫</label>
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-6705223"><label class="task-list-item-label" for="task-item-6705223"> 开始学习机器学习方面的内容</label></li>
+</ul>
+</li>
+</ul>
+<h2 id="下周">下周</h2>
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-5981098"><label class="task-list-item-label" for="task-item-5981098"> 梯度下降</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-854149"><label class="task-list-item-label" for="task-item-854149"> 代价函数</label></li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[周志   2020/10/12 - 2020/10/18]]></title>
         <id>https://cccccckl.github.io/post/zhou-zhi-20201012-20201018/</id>
@@ -193,16 +280,16 @@ book.save(savepath) #保存
 <h1 id="周计划">周计划</h1>
 <h2 id="本周">本周</h2>
 <ul class="contains-task-list">
-<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-8131871"><label class="task-list-item-label" for="task-item-8131871"> （初步）看懂别人写的爬虫</label>
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-7032852"><label class="task-list-item-label" for="task-item-7032852"> （初步）看懂别人写的爬虫</label>
 <ul class="contains-task-list">
-<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-6623454"><label class="task-list-item-label" for="task-item-6623454"> 机器学习开篇</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-6679488"><label class="task-list-item-label" for="task-item-6679488"> 机器学习开篇</label></li>
 </ul>
 </li>
 </ul>
 <h2 id="下周">下周</h2>
 <ul class="contains-task-list">
-<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-2240699"><label class="task-list-item-label" for="task-item-2240699"> 尝试自己写个爬虫</label></li>
-<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-8928074"><label class="task-list-item-label" for="task-item-8928074"> 开始学习机器学习方面的内容</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-7376476"><label class="task-list-item-label" for="task-item-7376476"> 尝试自己写个爬虫</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-1235288"><label class="task-list-item-label" for="task-item-1235288"> 开始学习机器学习方面的内容</label></li>
 </ul>
 ]]></content>
     </entry>
