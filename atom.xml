@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://cccccckl.github.io</id>
     <title>还是peng哥弔</title>
-    <updated>2020-10-25T06:30:10.094Z</updated>
+    <updated>2020-11-15T14:12:35.753Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://cccccckl.github.io"/>
     <link rel="self" href="https://cccccckl.github.io/atom.xml"/>
@@ -10,6 +10,132 @@
     <logo>https://cccccckl.github.io/images/avatar.png</logo>
     <icon>https://cccccckl.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 还是peng哥弔</rights>
+    <entry>
+        <title type="html"><![CDATA[周志 2020/11/9 - 2020/11/15]]></title>
+        <id>https://cccccckl.github.io/post/zhou-zhi-2020119-20201115/</id>
+        <link href="https://cccccckl.github.io/post/zhou-zhi-2020119-20201115/">
+        </link>
+        <updated>2020-11-15T14:06:32.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="检测系统的实现与开发">检测系统的实现与开发</h1>
+<h2 id="对象识别object-identifying">对象识别(Object Identifying)</h2>
+<p>从布局信息中提取UI小部件（UI widgets ），将安卓活动中的视图组织为一个层次树，并利用uiatomator来检索视图层次树（hierarchy）。<br>
+通过Python脚本从层次信息中快速检测提取对应文本，还从相关属性中获取每个UI widgte的坐标。在检测过程中，为了降低布局分析的计算成本，RansomProber会删除相同的活动。</p>
+<h2 id="坐标匹配coordinate-matching">坐标匹配(Coordinate Matching)</h2>
+<p>不再依赖按钮的外观来识别按钮指示器，仔细检查用户单击的UI widgte（例如，按钮、图片、标签或空白区域）。<br>
+通过显示远离用户当前操作的噪声元素(noise element)，这样RansomProber便不容易被绕过，并从UI层次信息中提取位置信息，当获得了所有UI widgte的坐标后，最后一步就是判断刚才的单击操作是否是针对特定按钮。通过比较单击点与UI widgte之间的位置，如果在一定范围内，则能够确定用户点击了这个按钮。此外，还需要检查按钮对应的文本内容，通过分析100个加密应用程序建立了一个关键字数据库，若文本内容属于预定义的关键字数据库，则按钮指示器被确认。</p>
+<h2 id="真实样例分析a-real-example">真实样例分析(A Real Example)</h2>
+<p>Simplocker的某一个变体。在监控文件操作后，Transomprober开始分析文件是否已经加密。同时，RansomProber会持续记录用户的点击坐标和相关活动的布局信息。利用熵分析，判断是否有文件被加密，若已经开始加密，被分析的应用程序仍然在前台，位于堆栈的顶部，这时，transcomprober需进一步确定文件加密是否来自用户意图。在文件加密的过程中，rancomprober会识别UI界面中的小部件，并检查3个UI indicators的外观。通过分析这些小部件，RansomProber无法找出建议的3个UI指标中的一个。为了检测按钮指示器外观，将用户点击坐标与提取的按钮信息位置进行匹配，在将相应文本在预先定义的关键字数据库中进行比较，在这些活动中没有发现与加密相关文本。</p>
+<h1 id="局限性讨论">局限性讨论</h1>
+<p>目前抵御病毒的其中一个预防措施是只从信誉良好的应用商店下载软件包（packages），例如谷歌Play store或7亚马逊应用商店。另一种是不给予未验证的不可信的开发者开发的应用程序管理员权限。<br>
+对于一些不走寻常路的勒索软件也存在这个系统无法解决的问题，比如说利用正常的加密软件在的加密协议来进行加密。<br>
+可以进一步尝试对每一个指标分配一个权值和分数标准，对文件加密操作的每一个指标进行一个打分，这给出该应用程序的整体信誉分数（overall reputation score）。如果分数高于预设值，系统将会发出提醒并要求用户授予权限。</p>
+<h1 id="周计划">周计划</h1>
+<h2 id="本周">本周</h2>
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-2711048"><label class="task-list-item-label" for="task-item-2711048"> 论文完结</label></li>
+</ul>
+<h2 id="下周">下周</h2>
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-1174263"><label class="task-list-item-label" for="task-item-1174263"> 寻找处理照片算体积的方法</label></li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[周志 2020/11/2 - 2020/11/8]]></title>
+        <id>https://cccccckl.github.io/post/zhou-zhi-2020112-2020118/</id>
+        <link href="https://cccccckl.github.io/post/zhou-zhi-2020112-2020118/">
+        </link>
+        <updated>2020-11-07T08:47:39.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="论文">论文</h3>
+<h2 id="背景介绍">背景介绍</h2>
+<p>勒索软件（ransomware），是通过阻止受影响的用户访问他们的设备或数据的任何类型的恶意软件，以此向他们索要一笔钱。<br>
+世界上出现了一批防治勒索病毒的检测独立系统，如ShieldFS、 uncleup、 CryptoDrop和HelDroid等等。但是它们都是PC端下的检测系统，对于安卓手机上的勒索软件却无能为力。<br>
+本文将详细介绍收集到的2721个勒索软件样本的各种行为分析以及防治，以此开发出一个实时且精确的检测系统。</p>
+<h2 id="勒索软件的特征">勒索软件的特征</h2>
+<h1 id="时间轴-timeline">时间轴 Timeline</h1>
+<p>根据一个收集了2435个Android勒索软件样本的报告，我们可以得知一个关于勒索软件具体行为的一个表。<br>
+收集的勒索软件中，多数为Jisut和Slocker的变种有关，甚至出现了作为服务的RaaS，方便用户进行自定义设置以便大范围传播</p>
+<h1 id="行为-features">行为 Features</h1>
+<p>锁屏策略（Lock Screen）<br>
+进行中活动的劫持、设置特定参数、禁用按钮<br>
+加密文件（Encrypt File）<br>
+1）用加密的数据覆盖原始文件的内容。2） 确定原始文件是否有价值，如扩展或位置。3） 删除原始文件并创建包含加密数据的新文件<br>
+权限使用（Permission Uses）<br>
+广泛请求互联网、读取手机状态的权限。有近半的勒索软件倾向于请求KILL_BACKGROUND_PROCESSES权限。<br>
+支付手段（Payment Method）<br>
+多数使用比特币等匿名支付方式<br>
+威胁信息（Threatening Message）<br>
+包含文本、图像和音频吓唬或警告受害者<br>
+威胁的模型 Model<br>
+勒索软件通常会试图控制该设备，并且不容易被删除</p>
+<h2 id="检测系统的设计">检测系统的设计</h2>
+<h1 id="开发概述">开发概述</h1>
+<p>软件是否合法运作，我们分成了三步进行分析： 首先，检测加密分析模块是否对某些文件进行了加密。<br>
+然后，前台分析模块决定加密过程是否属于用户正在交互的应用程序。最后，对用户相关活动和操作坐标的UI小部件进行分析，即布局分析模块。</p>
+<h1 id="a加密分析encryprion-analysis">A.加密分析(Encryprion Analysis)</h1>
+<p>需要保护的重点目录。<br>
+过滤掉经常被访问的临时文件，降低性能开销。<br>
+预先定义了一些需要保护的目录，如包含用户有价值的信息，如个人账户信息、联系人信息数据库、短信数据库等。<br>
+根据被访问的信息熵(Information entropy)来确定是否被加密。<br>
+依赖信息熵来度量数据转换的程度。</p>
+<h1 id="b前台分析foreground-analysis">B.前台分析(Foreground Analysis)</h1>
+<p>信息熵检测到文件已被加密，将进一步确定加密行为是否异常。<br>
+在检测当中，对比encryption process与活动堆栈的top activity，如果encryption process与top activity无关，则用户可能不知道该加密行为。<br>
+勒索软件的开发人员在执行加密操作的时候往往会利用后台来进行。</p>
+<h1 id="c布局分析">C.布局分析</h1>
+<p>当正常的应用程序正在后台进行活动的同时，会出现UI小部件来提醒用户，但是在勒索软件中是看不到的。<br>
+因此，我们通过广泛分析，确定了三个UI指示物（UI indicators）。这些指示物会在加密过程中出现。<br>
+<strong>文件列表 File List</strong><br>
+为了帮助用户选择需要加密的文件，正常应用程序（benign app）通常会在界面上提供文件或文件夹列表。<br>
+与此对比，勒索软件虽然关注用户重要的私人文件，但是它会自动做出选择并且从不告诉用户那些文件已被加密。<br>
+<strong>提示文本Hint Text</strong><br>
+所见即所得(WYSIWYG)，意味着界面会允许用户查看与结果相近的内容。<br>
+由于加密文件属于敏感行为，正常应用程序会使用一些提示语来告诉用户自己正在做什么以及已经做了什么。<br>
+<strong>按钮 Button</strong><br>
+为了帮助用户意识到他们自己在做什么并了解结果，按钮上的显示文本不应该模糊不清。</p>
+<p>以上三个UI指示器（UI indicators）在正常应用程序加密时会出现，而在我们收集到的所有勒索软件样本当中均没有出现。<br>
+因此，在文件被加密的过程中，检测软件必须持续记录用户的点击坐标和相关活动的布局信息。1、如果加密过程中没有点击操作，可以断言该操作是没有用户意图的。2、如果存在点击行为，则进一步分析UI小部件（UI widgets）。<br>
+<strong>联合指示器策略（Union Indicator Policy）</strong><br>
+只允许满足全部三个指标的应用程序，根据联合指示器策略（Union Indicator Policy）严格检测勒索软件，同时几乎不会引起正常加密软甲的误报。</p>
+<h1 id="周计划">周计划</h1>
+<h2 id="本周">本周</h2>
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-8175565"><label class="task-list-item-label" for="task-item-8175565"> 论文前半部分</label></li>
+</ul>
+<h2 id="下周">下周</h2>
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-4204562"><label class="task-list-item-label" for="task-item-4204562"> 论文完结</label></li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[周志 2020/10/26 - 2020/11/1]]></title>
+        <id>https://cccccckl.github.io/post/zhou-zhi-20201026-2020111/</id>
+        <link href="https://cccccckl.github.io/post/zhou-zhi-20201026-2020111/">
+        </link>
+        <updated>2020-11-02T08:47:01.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="梯度下降">梯度下降</h1>
+<p>多层感知器 MLP，其中分为输入层，输出层，以及隐藏层。输入层即网络的第一层，通过输入层将数据信息传递给隐藏层进行处理，而输出层则是对处理完成的输入数据的一个反馈，隐藏层则进行学习的具体工作。<br>
+什么是神经元？<br>
+可以理解成一个用来装数据的容器，把神经元中装着的数，叫做“激活值”。<br>
+神经网络在工作时，上一层的激活值将决定下一层的激活值，所以说，神经网络处理信息的核心机制正是一层的激活值是通过怎样的运算，算出下一层激活值的，某种程度上讲，它想模仿的是生物中神经元组成的网络，即某些神经元的激发，就会促使另一些神经元激发。<br>
+<img src="https://cccccckl.github.io/post-images/1604308369684.jpg" alt="" loading="lazy"><br>
+每层通过合适的权重和偏置来进行调整。下一层的每个神经元的激活值等于上一层中所有激活值的加权和再加上偏置值，最后再把这个和输入进一个压缩函数。<br>
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>σ</mi><mo>(</mo><msub><mi>ω</mi><mn>1</mn></msub><msub><mi>a</mi><mn>1</mn></msub><mo>+</mo><msub><mi>ω</mi><mn>2</mn></msub><msub><mi>a</mi><mn>2</mn></msub><mo>+</mo><msub><mi>ω</mi><mn>3</mn></msub><msub><mi>a</mi><mn>3</mn></msub><mo>+</mo><mo>⋯</mo><mo>+</mo><msub><mi>ω</mi><mi>n</mi></msub><msub><mi>a</mi><mi>n</mi></msub><mo>+</mo><mi>b</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\sigma(\omega_1a_1+\omega_2a_2+\omega_3a_3+\cdots+\omega_na_n+b)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">σ</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">ω</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.73333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">ω</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.73333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">ω</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="minner">⋯</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.73333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">ω</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">b</span><span class="mclose">)</span></span></span></span><br>
+那神经网络是如何通过数据来获得合适的权重和偏置的？<br>
+在一开始，它会完全随机地初始化所有的权值和偏置值，即在做一些随机判断，这个时候就需要定义一个代价函数来告诉电脑自己做的很糟糕，你要将每个垃圾输出激活值与你想要的值之间的差的平方加起来，这个称之为训练单个样本的代价，当网络能对图像进行正确分类时，这个平方和就比较小。<br>
+而我们需要所训练的上万个样本的平均代价来评价这个网络有多糟糕，将网络本身看作是一个函数，那么我们需要将输出的代价值最小化，而让函数值最小的算法，其实不过是先计算梯度，再按梯度反方向走一小步下山，然后依次循环。</p>
+<h1 id="周计划">周计划</h1>
+<h2 id="本周">本周</h2>
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-4735201"><label class="task-list-item-label" for="task-item-4735201"> 梯度下降</label></li>
+</ul>
+<h2 id="下周">下周</h2>
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-3721088"><label class="task-list-item-label" for="task-item-3721088"> 论文前半部分</label></li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[周志 2020/10/19 - 2020/10/25]]></title>
         <id>https://cccccckl.github.io/post/zhou-zhi-20201018-20201025/</id>
@@ -84,16 +210,16 @@ if __name__ == &quot;__main__&quot; :
 <h1 id="周计划">周计划</h1>
 <h2 id="本周">本周</h2>
 <ul class="contains-task-list">
-<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-287860"><label class="task-list-item-label" for="task-item-287860"> 尝试自己写个爬虫</label>
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-8410284"><label class="task-list-item-label" for="task-item-8410284"> 尝试自己写个爬虫</label>
 <ul class="contains-task-list">
-<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-7740784"><label class="task-list-item-label" for="task-item-7740784"> 开始学习机器学习方面的内容</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-9219053"><label class="task-list-item-label" for="task-item-9219053"> 开始学习机器学习方面的内容</label></li>
 </ul>
 </li>
 </ul>
 <h2 id="下周">下周</h2>
 <ul class="contains-task-list">
-<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-4093166"><label class="task-list-item-label" for="task-item-4093166"> 梯度下降</label></li>
-<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-7406052"><label class="task-list-item-label" for="task-item-7406052"> 代价函数</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-1339553"><label class="task-list-item-label" for="task-item-1339553"> 梯度下降</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-3001394"><label class="task-list-item-label" for="task-item-3001394"> 代价函数</label></li>
 </ul>
 ]]></content>
     </entry>
@@ -280,16 +406,16 @@ book.save(savepath) #保存
 <h1 id="周计划">周计划</h1>
 <h2 id="本周">本周</h2>
 <ul class="contains-task-list">
-<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-8257733"><label class="task-list-item-label" for="task-item-8257733"> （初步）看懂别人写的爬虫</label>
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-9522130"><label class="task-list-item-label" for="task-item-9522130"> （初步）看懂别人写的爬虫</label>
 <ul class="contains-task-list">
-<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-6410444"><label class="task-list-item-label" for="task-item-6410444"> 机器学习开篇</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-7874901"><label class="task-list-item-label" for="task-item-7874901"> 机器学习开篇</label></li>
 </ul>
 </li>
 </ul>
 <h2 id="下周">下周</h2>
 <ul class="contains-task-list">
-<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-6101072"><label class="task-list-item-label" for="task-item-6101072"> 尝试自己写个爬虫</label></li>
-<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-7882307"><label class="task-list-item-label" for="task-item-7882307"> 开始学习机器学习方面的内容</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-6533541"><label class="task-list-item-label" for="task-item-6533541"> 尝试自己写个爬虫</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-9680619"><label class="task-list-item-label" for="task-item-9680619"> 开始学习机器学习方面的内容</label></li>
 </ul>
 ]]></content>
     </entry>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>周志 2020/11/2 - 2020/11/8 | 还是peng哥弔</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://cccccckl.github.io/favicon.ico?v=1605449530080">
+<link rel="stylesheet" href="https://cccccckl.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="论文
+背景介绍
+勒索软件（ransomware），是通过阻止受影响的用户访问他们的设备或数据的任何类型的恶意软件，以此向他们索要一笔钱。
+世界上出现了一批防治勒索病毒的检测独立系统，如ShieldFS、 uncleup、 CryptoDro..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://cccccckl.github.io">
+        <img src="https://cccccckl.github.io/images/avatar.png?v=1605449530080" class="site-logo">
+        <h1 class="site-title">还是peng哥弔</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="https://cccccckl.github.io/tags" class="site-nav">
+            周志
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      blog
+    </div>
+    <div class="site-footer">
+       | <a class="rss" href="https://cccccckl.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">周志 2020/11/2 - 2020/11/8</h2>
+            <div class="post-date">2020-11-07</div>
+            
+            <div class="post-content" v-pre>
+              <h3 id="论文">论文</h3>
+<h2 id="背景介绍">背景介绍</h2>
+<p>勒索软件（ransomware），是通过阻止受影响的用户访问他们的设备或数据的任何类型的恶意软件，以此向他们索要一笔钱。<br>
+世界上出现了一批防治勒索病毒的检测独立系统，如ShieldFS、 uncleup、 CryptoDrop和HelDroid等等。但是它们都是PC端下的检测系统，对于安卓手机上的勒索软件却无能为力。<br>
+本文将详细介绍收集到的2721个勒索软件样本的各种行为分析以及防治，以此开发出一个实时且精确的检测系统。</p>
+<h2 id="勒索软件的特征">勒索软件的特征</h2>
+<h1 id="时间轴-timeline">时间轴 Timeline</h1>
+<p>根据一个收集了2435个Android勒索软件样本的报告，我们可以得知一个关于勒索软件具体行为的一个表。<br>
+收集的勒索软件中，多数为Jisut和Slocker的变种有关，甚至出现了作为服务的RaaS，方便用户进行自定义设置以便大范围传播</p>
+<h1 id="行为-features">行为 Features</h1>
+<p>锁屏策略（Lock Screen）<br>
+进行中活动的劫持、设置特定参数、禁用按钮<br>
+加密文件（Encrypt File）<br>
+1）用加密的数据覆盖原始文件的内容。2） 确定原始文件是否有价值，如扩展或位置。3） 删除原始文件并创建包含加密数据的新文件<br>
+权限使用（Permission Uses）<br>
+广泛请求互联网、读取手机状态的权限。有近半的勒索软件倾向于请求KILL_BACKGROUND_PROCESSES权限。<br>
+支付手段（Payment Method）<br>
+多数使用比特币等匿名支付方式<br>
+威胁信息（Threatening Message）<br>
+包含文本、图像和音频吓唬或警告受害者<br>
+威胁的模型 Model<br>
+勒索软件通常会试图控制该设备，并且不容易被删除</p>
+<h2 id="检测系统的设计">检测系统的设计</h2>
+<h1 id="开发概述">开发概述</h1>
+<p>软件是否合法运作，我们分成了三步进行分析： 首先，检测加密分析模块是否对某些文件进行了加密。<br>
+然后，前台分析模块决定加密过程是否属于用户正在交互的应用程序。最后，对用户相关活动和操作坐标的UI小部件进行分析，即布局分析模块。</p>
+<h1 id="a加密分析encryprion-analysis">A.加密分析(Encryprion Analysis)</h1>
+<p>需要保护的重点目录。<br>
+过滤掉经常被访问的临时文件，降低性能开销。<br>
+预先定义了一些需要保护的目录，如包含用户有价值的信息，如个人账户信息、联系人信息数据库、短信数据库等。<br>
+根据被访问的信息熵(Information entropy)来确定是否被加密。<br>
+依赖信息熵来度量数据转换的程度。</p>
+<h1 id="b前台分析foreground-analysis">B.前台分析(Foreground Analysis)</h1>
+<p>信息熵检测到文件已被加密，将进一步确定加密行为是否异常。<br>
+在检测当中，对比encryption process与活动堆栈的top activity，如果encryption process与top activity无关，则用户可能不知道该加密行为。<br>
+勒索软件的开发人员在执行加密操作的时候往往会利用后台来进行。</p>
+<h1 id="c布局分析">C.布局分析</h1>
+<p>当正常的应用程序正在后台进行活动的同时，会出现UI小部件来提醒用户，但是在勒索软件中是看不到的。<br>
+因此，我们通过广泛分析，确定了三个UI指示物（UI indicators）。这些指示物会在加密过程中出现。<br>
+<strong>文件列表 File List</strong><br>
+为了帮助用户选择需要加密的文件，正常应用程序（benign app）通常会在界面上提供文件或文件夹列表。<br>
+与此对比，勒索软件虽然关注用户重要的私人文件，但是它会自动做出选择并且从不告诉用户那些文件已被加密。<br>
+<strong>提示文本Hint Text</strong><br>
+所见即所得(WYSIWYG)，意味着界面会允许用户查看与结果相近的内容。<br>
+由于加密文件属于敏感行为，正常应用程序会使用一些提示语来告诉用户自己正在做什么以及已经做了什么。<br>
+<strong>按钮 Button</strong><br>
+为了帮助用户意识到他们自己在做什么并了解结果，按钮上的显示文本不应该模糊不清。</p>
+<p>以上三个UI指示器（UI indicators）在正常应用程序加密时会出现，而在我们收集到的所有勒索软件样本当中均没有出现。<br>
+因此，在文件被加密的过程中，检测软件必须持续记录用户的点击坐标和相关活动的布局信息。1、如果加密过程中没有点击操作，可以断言该操作是没有用户意图的。2、如果存在点击行为，则进一步分析UI小部件（UI widgets）。<br>
+<strong>联合指示器策略（Union Indicator Policy）</strong><br>
+只允许满足全部三个指标的应用程序，根据联合指示器策略（Union Indicator Policy）严格检测勒索软件，同时几乎不会引起正常加密软甲的误报。</p>
+<h1 id="周计划">周计划</h1>
+<h2 id="本周">本周</h2>
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-8175565"><label class="task-list-item-label" for="task-item-8175565"> 论文前半部分</label></li>
+</ul>
+<h2 id="下周">下周</h2>
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-4204562"><label class="task-list-item-label" for="task-item-4204562"> 论文完结</label></li>
+</ul>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://cccccckl.github.io/post/zhou-zhi-20201026-2020111/">
+                  <h3 class="post-title">
+                    周志 2020/10/26 - 2020/11/1
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>
